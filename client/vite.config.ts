@@ -1,6 +1,5 @@
 import { Alias, defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { reactRouterPlugin } from 'vite-plugin-next-react-router'
 import * as fs from 'fs'
 import * as path from 'path'
 
@@ -45,7 +44,7 @@ const tsConfigAlias = (typeScriptConfig: TSConfig): Alias[] => {
 }
 
 export default defineConfig({
-	plugins: [react(), reactRouterPlugin()],
+	plugins: [react()],
 	resolve: {
 		alias: tsConfigAlias(tsConfig)
 	}

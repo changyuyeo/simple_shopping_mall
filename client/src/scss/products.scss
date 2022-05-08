@@ -8,8 +8,6 @@
 .product-item {
 	border: 1px solid #000;
 	padding: 10px;
-	&__category {
-	}
 	&__title {
 	}
 	&__description {
@@ -21,13 +19,9 @@
 	}
 	&__price {
 	}
-	&__rating {
-	}
 }
 
 .product-detail {
-	&__category {
-	}
 	&__title {
 	}
 	&__description {
@@ -35,7 +29,5 @@
 	&__image {
 	}
 	&__price {
-	}
-	&__rating {
 	}
 }

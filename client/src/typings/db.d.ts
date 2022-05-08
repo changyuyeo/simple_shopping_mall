@@ -1,14 +1,8 @@
-export interface IRating {
-	rate: number
-	count: number
-}
-
 export interface IProduct {
-	id: number
-	title: string
+	id: string
+	imageUrl: string
 	price: number
+	title: string
 	description: string
-	category: string
-	image: string
-	rating: IRating
+	createdAt: string
 }

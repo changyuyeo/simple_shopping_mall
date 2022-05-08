@@ -1,15 +1,7 @@
 import { QueryClient } from 'react-query'
-import axios from 'axios'
+import { request, RequestDocument } from 'graphql-request'
 
-type AnyOBJ = { [key: string]: string | number | boolean }
-type FetcherType = {
-	method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
-	path: string
-	body?: AnyOBJ
-	params?: AnyOBJ
-}
-
-const BASE_URL = 'https://fakestoreapi.com' as const
+const BASE_URL = '/' as const
 const queryOption = {
 	defaultOptions: {
 		queries: {
@@ -31,19 +23,8 @@ export const getClient = (() => {
 })()
 
 export const queryKeys = {
-	PRODUCTS: 'PRODUCTS',
-	PRODUCT: 'PRODUCT'
+	PRODUCTS: 'PRODUCTS'
 }
 
-export const fetcher = async (payload: FetcherType) => {
-	const config = {
-		method: payload.method,
-		url: `${BASE_URL}${payload.path}`
-	}
-	try {
-		const { data } = await axios(config)
-		return data
-	} catch (error) {
-		console.error(error)
-	}
-}
+export const fetcher = (query: RequestDocument, variables = {}) =>
+	request(BASE_URL, query, variables)
