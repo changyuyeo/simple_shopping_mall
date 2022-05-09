@@ -26,6 +26,7 @@
 			"@mock/*": ["src/mock/*"],
 			"@pages/*": ["src/pages/*"],
 			"@scss/*": ["src/scss/*"],
+			"@store/*": ["src/store/*"],
 			"@typings/*": ["src/typings/*"],
 			"@utils/*": ["src/utils/*"],
 			"@src/*": ["src/*"]

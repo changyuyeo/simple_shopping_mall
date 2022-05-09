@@ -23,7 +23,8 @@ export const getClient = (() => {
 })()
 
 export const queryKeys = {
-	PRODUCTS: 'PRODUCTS'
+	PRODUCTS: 'PRODUCTS',
+	CART: 'CART'
 }
 
 export const fetcher = (query: RequestDocument, variables = {}) =>
