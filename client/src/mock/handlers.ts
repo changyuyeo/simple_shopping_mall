@@ -1,7 +1,7 @@
 import { graphql } from 'msw'
 
 import { GET_PRODUCTS, GET_PRODUCT } from '@graphql/products'
-import { ADD_CART, GET_CART } from '@graphql/cart'
+import { ADD_CART, DELETE_CART, GET_CART, UPDATE_CART } from '@graphql/cart'
 import { ICart } from '@typings/db'
 
 const mockProducts = (() =>
@@ -28,15 +28,31 @@ export const handlers = [
 		return res(ctx.data(cartData))
 	}),
 	graphql.mutation(ADD_CART, (req, res, ctx) => {
-		const newData = { ...cartData }
-		const id = req.variables.id
-		if (newData[id])
-			newData[id] = { ...newData[id], amount: (newData[id].amount || 0) + 1 }
-		else {
-			const found = mockProducts.find(item => item.id === req.variables.id)
-			if (found) newData[id] = { ...found, amount: 1 }
+		const newCartData = { ...cartData }
+		const { id } = req.variables
+		const targetProduct = mockProducts.find(item => item.id === id)
+		if (!targetProduct) throw new Error('상품이 없습니다.')
+		const newItem = {
+			...targetProduct,
+			amount: (newCartData[id]?.amount || 0) + 1
 		}
+		newCartData[id] = newItem
+		cartData = newCartData
+		return res(ctx.data(newItem))
+	}),
+	graphql.mutation(UPDATE_CART, (req, res, ctx) => {
+		const newData = { ...cartData }
+		const { id, amount } = req.variables
+		if (!newData[id]) throw new Error('없는 데이터입니다')
+		const newItem = { ...newData[id], amount }
+		newData[id] = newItem
 		cartData = newData
-		return res(ctx.data(newData))
+		return res(ctx.data(newItem))
+	}),
+	graphql.mutation(DELETE_CART, ({ variables: { id } }, res, ctx) => {
+		const newData = { ...cartData }
+		delete newData[id]
+		cartData = newData
+		return res(ctx.data(id))
 	})
 ]

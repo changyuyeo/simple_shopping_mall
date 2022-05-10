@@ -6,7 +6,10 @@ import { fetcher, queryKeys } from '@lib/queryClient'
 import { ICart } from '@typings/db'
 
 const CartPage = () => {
-	const { data } = useQuery(queryKeys.CART, () => fetcher(GET_CART))
+	const { data } = useQuery(queryKeys.CART, () => fetcher(GET_CART), {
+		staleTime: 0,
+		cacheTime: 1000
+	})
 	const cartItems = Object.values(data || {}) as ICart[]
 
 	return !cartItems.length ? (
